@@ -1,6 +1,29 @@
 from collections import defaultdict
 import numpy as np
 
+
+def amenity(d,v):
+    v.append(np.sum(list(d.values())))# Total
+    v.append(d['pub']) # pubs
+    v.append(d['fast_food']+d['restaurant']) #transformer
+    v.append(d['college']) # cable
+    v.append(d['library']) # generator
+    v.append(d['school']) #switcjgears
+    v.append(d['university']) #plants
+    v.append(d['fuel']) #pole  + tower 
+    v.append(d['hospital'])
+    v.append(d['pharmacy'])
+    v.append(d['veterinary']+d['clinic'])
+    v.append(d['casino']+d['cinema']+d['nightclub'])
+    v.append(d['fire_station'])
+    v.append(d['place_of_worship'])
+    v.append(d['police'])
+    v.append(d['prison'])
+    v.append(d['post_office'])
+    v.append(d['marketplace'])
+    v.append(d['bank'])
+    return v
+
 def building_inf(gdf_proj):
     v=[]
     cols = list(gdf_proj.columns)
@@ -82,12 +105,13 @@ def building_inf(gdf_proj):
         v.append([np.nan]*24)####################13
         v= [item for sublist in v for item in sublist]
         
-    if 'amenity' in cols:
-        v.append(gdf_proj['amenity'].dropna().value_counts().sum()) # Total amenities
-        v.append(len(gdf_proj['amenity'].dropna().unique())) #Tyes of amenities 
+    if 'amenity' in cols: #order changed ,19+1
+        d=defaultdict(int,dict(gdf_proj['amenity'].value_counts()))
+        v.append(len(gdf_proj['amenity'].dropna().unique())) #Tyes of amenities
+        v = amenity(d,v)
     else:
-        v.append(np.nan)
-        v.append(np.nan)
+        temp=[[np.nan]]*20
+        v= v + [item for sublist in temp for item in sublist]
 
     if 'tourism' in cols:
         d = defaultdict(int,gdf_proj.tourism.value_counts())

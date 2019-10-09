@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,jsonify
 from flask_restful import Api, Resource, reqparse
 from parsing import parse_init,check_parse
 from reverse_geocoding import get_coordinates
@@ -24,12 +24,13 @@ class My_Data(Resource):
            v = no_graph_made()
        v2 = building_info(d,coord)
        df = v.join(v2)
-       return(df.to_json(orient='records')[1:-1].replace('},{', '} {'))
+       #return(df.to_json(orient='records',lines=False)[1:-1].replace('\n',''))#replace('},{', '} {',).replace('{\ ',''))
+       return jsonify(df.to_dict('records'))
 
 api.add_resource(My_Data, '/inf')
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0',debug=False,port=5000)
+    app.run(debug=True,threaded=True)
     #app.config['SERVER_NAME'] = '130.12.12.13'
     #app.run('0.0.0.0',port=5000,debug=False) #host='0.0.0.0'

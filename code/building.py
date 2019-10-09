@@ -17,7 +17,10 @@ def building_info(d,coord):
        'industrialbuildingsarea_mean','industrialbuildingsarea_median','industrialbuildingsarea_max',
        'residential_count','percent_civilarea','residential_area','religiousbuildings_count','religiousbuildings_area',
         'commercial_count','commercial_area','retial_count','retail_area','school_count','school_area',
-        'uni_count','uni_area','unclass_count','unclass_area','amenities_total','amenities_type','toursim_type','toursim_total','toursim_attractions','leisure_count']
+        'uni_count','uni_area','unclass_count','unclass_area','amenities_type','amenity_total','pub_count','fastfood_count','college_count','library_count','school_count','university_count',
+        'fuel_count','hospital_count','pharmacy_count','clinic_count','cinema_nightclubs_count',
+        'fire_station_count','place_of_worship_count','policestation_count','prison_count','post_office_count',
+        'marketplace_count','bank_count','toursim_type','toursim_total','toursim_attractions','leisure_count']
     try:
         # try graph from point
         gdf_proj = ox.project_gdf(ox.footprints_from_point(point=[coord['latitude'],coord['longitude']], distance=1609))
@@ -29,7 +32,7 @@ def building_info(d,coord):
             v=building_inf(gdf_proj)
             v = pd.DataFrame([v],columns=tags)
         except:
-            v.append([np.nan]*20)
+            v.append([np.nan]*48)
             v=pd.DataFrame(v,columns=tags)    
     return v
 
