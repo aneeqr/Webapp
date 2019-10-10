@@ -8,8 +8,8 @@ def parse_init():
     parser.add_argument('county', type=str)
     parser.add_argument('country', type=str)
     parser.add_argument('PC',type=str)
-    parser.add_argument('network_type',type=str,required=True,help='Please specificy network type, options include: drive, bike, walk')
-    parser.add_argument('search_radius',type=int,required=True,help='Please specify search radius in metres')
+    parser.add_argument('network_type',type=str,required=False,help='Please specificy network type, options include: drive, bike, walk',default='drive')
+    parser.add_argument('search_radius',type=int,required=False,help='Please specify search radius in metres',default=1609)
     return parser
 
 def check_parse(parser):
