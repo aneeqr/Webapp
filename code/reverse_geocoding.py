@@ -8,6 +8,7 @@ geolocator = Nominatim(user_agent="my-application")
 
 def get_coordinates(d):
     d={k:v for k,v in d.items() if v is not None}
-    print(' '.join(list(d.values())))
+    d.pop('search_radius')
+    d.pop('network_type')
     location = geolocator.geocode(' '.join(list(d.values())))
     return {'latitude':location.latitude,'longitude':location.longitude}

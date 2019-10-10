@@ -12,6 +12,8 @@ from building_features import building_inf
 
 def building_info(d,coord):
     v=[]
+    print(d)
+    print(d['search_radius'])
     tags = ['total_buildings','construction_types','Totalbuildingarea',
        'Buildingarea_avg','industrialbuildings_count','industrialbuildingsarea_sum',
        'industrialbuildingsarea_mean','industrialbuildingsarea_median','industrialbuildingsarea_max',
@@ -23,12 +25,14 @@ def building_info(d,coord):
         'marketplace_count','bank_count','toursim_type','toursim_total','toursim_attractions','leisure_count']
     try:
         # try graph from point
-        gdf_proj = ox.project_gdf(ox.footprints_from_point(point=[coord['latitude'],coord['longitude']], distance=1609))
+        #print(d['search_radius'])
+        gdf_proj = ox.project_gdf(ox.footprints_from_point(point=[coord['latitude'],coord['longitude']], distance=d['search_radius']))
         v = building_inf(gdf_proj)
         v = pd.DataFrame([v],columns=tags)
     except:
         try: #Go Graph from address
-            gdf_proj = ox.project_gdf(ox.footprints_from_address(' '.join(list(d.values())), distance=1609))
+            #print(d['search_radius'])
+            gdf_proj = ox.project_gdf(ox.footprints_from_address(' '.join(list(d.values())), distance=d['search_radius']))
             v=building_inf(gdf_proj)
             v = pd.DataFrame([v],columns=tags)
         except:

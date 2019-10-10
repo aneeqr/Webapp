@@ -286,10 +286,10 @@ def get_edgefeatures(edges_proj):
 
 
 def street_level_stats(v):
-    graph_proj=v[0]
-    edges_proj= v[1]
-    stats = ox.basic_stats(graph_proj, area=edges_proj.unary_union.convex_hull.area)
-    extended_stats = ox.extended_stats(graph_proj, ecc=True, bc=True, cc=True)
+    #graph_proj=v[0]
+    #edges_proj= v[1]
+    stats = ox.basic_stats(v[0], area=v[1].unary_union.convex_hull.area)
+    extended_stats = ox.extended_stats(v[0], ecc=True, bc=True, cc=True)
     for key, value in extended_stats.items():
         stats[key] = value
     extended_stats = dict(pd.Series(stats))
@@ -319,7 +319,7 @@ def street_level_stats(v):
        'ms_max','ms_min','ms_mean','highwaylen_median','highwaylen_max','highwaylen_min',
        'highwaylen_mean','highway_count','road_types','has_motorways','has_trunks','pr_count','scr_count',
        'resroad_count','percent_oneways']
-    values+= get_edgefeatures(edges_proj)
+    values+= get_edgefeatures(v[1])
     df = pd.DataFrame([values],columns=tags)
     #out = df.to_json(orient='records')[1:-1].replace('},{', '} {')
     #print(values)
