@@ -1,5 +1,12 @@
 # Webapp
 
+## Getting Building and Street Level Info:
+http://127.0.0.1:5000/inf?add1=1 Nethercott Place&add2= Heavitree&town=Exeter&county=Devon&PS=EX1 2TT
+
+## Getting Amenties by distance:
+http://127.0.0.1:5000/inf?add1=1 Nethercott Place&add2= Heavitree&town=Exeter&county=Devon&PS=EX1 2TT&network_type=all_private&search_radius=1609
+
+(By default network type is set to drive and search radius is 1609 m)
 
 
 You can also specify several different network types:
