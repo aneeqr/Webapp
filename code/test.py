@@ -17,8 +17,11 @@ parser = parse_init()
 class My_Data(Resource):
    def get(self):
        d = check_parse(parser)
-       print(d)
-       coord = get_coordinates(d.copy())
+       try:
+          coord = get_coordinates(d.copy()) #PUT A CONDITION HERE
+       except:
+          print('Reverse Geocoding not successful!')
+          coord = 'NA'
        v = create_graph(d.copy(),coord)
        if len(v) > 1:
            v = street_level_stats(v)
@@ -32,13 +35,16 @@ class My_Data(Resource):
 class Amenities(Resource):
    def get(self):
       d = check_parse(parser)
-      coord = get_coordinates(d.copy())
+      try:
+         coord = get_coordinates(d.copy()) #PUT A CONDITION HERE h = 56 + ghtv xyz hdajs 
+      except:
+         print('Reverse Geocoding not successful!')
+         coord = 'NA'
       v = create_graph(d.copy(),coord)
-      #print(v)
       if len(v) > 1:
          return(jsonify(amenity_by_distance(v[3],v[0],coord['latitude'],coord['longitude'])))
       else:
-         return 'Routing failed, try different search radius'
+         return 'Routing failed, try different search radius or check your address'
       
 
 api.add_resource(My_Data, '/inf')

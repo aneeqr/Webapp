@@ -12,8 +12,8 @@ from building_features import building_inf
 
 def building_info(d,coord):
     v=[]
-    print(d)
-    print(d['search_radius'])
+    #print(d)
+    #print(d['search_radius'])
     tags = ['total_buildings','construction_types','Totalbuildingarea',
        'Buildingarea_avg','industrialbuildings_count','industrialbuildingsarea_sum',
        'industrialbuildingsarea_mean','industrialbuildingsarea_median','industrialbuildingsarea_max',
