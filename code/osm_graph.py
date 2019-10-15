@@ -35,3 +35,32 @@ def create_graph(d,coord):
         except:
             v.append('Graph Not Made!')
     return v
+
+
+def create_graph2(d,coord):
+    v=[]
+    try: #try coordinates
+        G = ox.graph_from_point([coord['latitude'],coord['longitude']],distance=d['search_radius'],network_type=d['network_type'])
+        graph_proj = ox.project_graph(G)
+        nodes_proj,edges_proj = ox.graph_to_gdfs(graph_proj, nodes=True, edges=True)
+        gdf_proj = ox.project_gdf(ox.footprints_from_point(point=[coord['latitude'],coord['longitude']], distance=d['search_radius']))
+        v.append(graph_proj)
+        v.append(edges_proj)
+        v.append(nodes_proj)
+        v.append(gdf_proj)
+        v.append(G)
+    except: 
+        try: #try manual coordinates enter search
+            G = ox.graph_from_point([d['Lat'],d['Lon']],distance=d['search_radius'],network_type=d['network_type'])
+            graph_proj = ox.project_graph(G)
+            nodes_proj,edges_proj = ox.graph_to_gdfs(graph_proj, nodes=True, edges=True)
+            gdf_proj = ox.project_gdf(ox.footprints_from_point(point=[d['latitude'],d['longitude']], distance=d['search_radius']))
+
+            v.append(graph_proj)
+            v.append(edges_proj)
+            v.append(nodes_proj)
+            v.append(gdf_proj)
+            v.append(G)
+        except:
+            v.append('Graph Not Made!')
+    return v

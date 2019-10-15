@@ -10,6 +10,8 @@ def parse_init():
     parser.add_argument('PS',type=str)
     parser.add_argument('network_type',type=str,required=False,help='Please specificy network type, options include: drive, bike, walk',default='drive')
     parser.add_argument('search_radius',type=int,required=False,help='Please specify search radius in metres',default=1609)
+    parser.add_argument('Lat',type=float,required=False,help='Latitude should be in float')
+    parser.add_argument('Lon',type=float,required=False,help='Longitude should be in float')
     return parser
 
 def check_parse(parser):

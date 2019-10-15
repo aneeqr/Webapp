@@ -30,7 +30,6 @@ def amenity_by_distance(gdf_proj,graph_proj,lat,lon):
     zone_num=utm.from_latlon(lat,lon)[2]
     letter=utm.from_latlon(lat,lon)[3]
     amenities = ['fire_station','police','fuel','pub','hospital','place_of_worship','post_office','pharmacy']
-    #amenities=['pub']
     x = pd.DataFrame(gdf_proj['amenity'].dropna().value_counts()).reset_index()
     x = x[x['index'].isin(list(filter(amenity_select,list(gdf_proj['amenity'].dropna().unique()))))]
     x1 = list(x[x['amenity']==1]['index'].values)
