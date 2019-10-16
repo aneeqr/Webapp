@@ -7,7 +7,8 @@ from osm_graph import create_graph,create_graph2
 from building import building_info
 from routing import amenity_by_distance
 from graph_html import generate_html
-
+from Natural_Cat import Nat_Cat
+from crime import Crime
    
 
 app = Flask(__name__)
@@ -66,10 +67,28 @@ class Graph_html(Resource):
       return frame
 
 
+class NatCat(Resource):
+   def get(self):
+      d = check_parse(parser)
+      try:
+         return jsonify(Nat_Cat(d.copy()))
+      except:
+         return 'Information could not be retrieved, enter a valid address!'
+         
+class Crime_stats(Resource):
+   def get(self):
+      d = check_parse(parser)
+      try:
+         return jsonify(Crime(d.copy()).to_dict('records'))
+      except:
+         return 'Information could not be retrieved, enter a valid address!'
+
+
 api.add_resource(My_Data, '/inf')
 api.add_resource(Amenities,'/route')
 api.add_resource(Graph_html,'/htm')
-
+api.add_resource(NatCat,'/natcat')
+api.add_resource(Crime_stats,'/crime')
 
 if __name__ == '__main__':
     app.run(debug=True,threaded=True)

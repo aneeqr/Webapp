@@ -21,9 +21,10 @@ def create_graph(d,coord):
         v.append(gdf_proj)
     except: 
         try: #try address
-            temp=d.copy()
+            #temp=d.copy()
             d.pop('search_radius')
             d.pop('network_type')
+            d = {k:v for k,v in d.items() if v is not None}
             graph_proj = ox.project_graph(ox.graph_from_address(' '.join(list(d.values())),distance=temp['search_radius'],network_type=temp['network_type']))
             nodes_proj,edges_proj = ox.graph_to_gdfs(graph_proj, nodes=True, edges=True)
             gdf_proj = ox.project_gdf(ox.footprints_from_address(' '.join(list(d.values())), distance=temp['search_radius']))
