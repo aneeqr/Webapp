@@ -23,6 +23,7 @@ class My_Data(Resource):
        d = check_parse(parser)
        try:
           coord = get_coordinates(d.copy()) #PUT A CONDITION HERE
+          #print(coord)
        except:
           print('Reverse Geocoding not successful!')
           coord = 'NA'
@@ -90,7 +91,7 @@ api.add_resource(Graph_html,'/htm')
 api.add_resource(NatCat,'/natcat')
 api.add_resource(Crime_stats,'/crime')
 
-if __name__ == '__main__':
-    app.run(debug=True,threaded=True)
+#if __name__ == '__main__':
+  #  app.run(debug=True,threaded=True)
     #app.config['SERVER_NAME'] = '130.12.12.13'
     #app.run('0.0.0.0',port=5000,debug=False) #host='0.0.0.0'
